@@ -247,6 +247,8 @@ function loadPOIS(e, url) {
 	} else {
 		url = "https://overpass-api.de/api/interpreter?data=[out:json][timeout:15];" + url + "out body center;";
 	}
+	// we are loading
+	loadingIndicator(true);
 	//Connect to OSM server
 	$.get(url, function (osmDataAsJson) {
 		//Go throw all elements (ways, relations, nodes) sent by Overpass
@@ -314,10 +316,12 @@ function loadPOIS(e, url) {
 			}
 		}
 		progressbar();
+		loadingIndicator(false);
 	}).fail(function() {
 		document.getElementById("query-button").removeAttribute("disabled");
 		showGlobalPopup(langRef[document.body.id][languageOfUser].LOADING_FAILURE);
 		progressbar();
+		loadingIndicator(false);
 	});
 }
 function getStateFromHash() {
@@ -335,6 +339,14 @@ function getStateFromHash() {
 			saved_lon = Number(hash[2]);
 		}
 		map.setView([saved_lat, saved_lon], zoomLevel);
+	}
+}
+
+function loadingIndicator(visible) {
+	if (visible) {
+		$("#loading_indicator").show();
+	} else {
+		$("#loading_indicator").hide();
 	}
 }
 //init map
