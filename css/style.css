@@ -153,6 +153,9 @@ label {
 	position:fixed;
 	background-color:rgba(51, 153, 102, 0.7);
 }
+#loading_indicator {
+	display:none;
+}
 #lnk-impress, #linkToPP {
 	float:right;
 	margin-top:5px;
